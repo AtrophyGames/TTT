@@ -26,7 +26,7 @@ public class SetupCommand implements CommandExecutor {
 
         if(player.hasPermission("ttt.setup")) {
             if(args.length == 0) {
-                player.sendMessage("");
+                player.sendMessage("§c/setup <lobby|create|set|tester|news>");
                 return true;
             } else {
                 if(args[0].equalsIgnoreCase("lobby")) {

@@ -13,7 +13,6 @@ import java.util.concurrent.TimeUnit;
 public class MySQL {
 
 
-    @SuppressWarnings("UnstableApiUsage")
     private final LoadingCache<Integer, Connection> cache = CacheBuilder
             .newBuilder().expireAfterAccess(10, TimeUnit.SECONDS)
             .removalListener((RemovalListener<Integer, Connection>) removalNotification -> {
@@ -109,8 +108,7 @@ public class MySQL {
         private String connectionUrl, database, user, password;
         private Integer port;
 
-        private Builder() {
-        }
+        private Builder() {}
 
         public Builder withUrl(String url) {
             this.connectionUrl = url;

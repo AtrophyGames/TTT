@@ -199,7 +199,10 @@ public class TTT extends JavaPlugin {
         getCommand("setup").setExecutor(new SetupCommand(this));
         getCommand("start").setExecutor(new StartCommand(this));
         getCommand("shop").setExecutor(new ShopCommand(this));
+
         getCommand("stats").setExecutor(new StatsCommand(this));
+        getCommand("stats").setTabCompleter(new StatsCommand(this));
         getCommand("statsall").setExecutor(new StatsCommand(this));
+        getCommand("statsall").setTabCompleter(new StatsCommand(this));
     }
 }

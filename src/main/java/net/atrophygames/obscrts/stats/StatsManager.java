@@ -290,13 +290,13 @@ public class StatsManager implements Stats {
     }
 
     public void updateTables() {
-        String karmaQuery = "UPDATE karma SET karma=? WHERE uuid=?";
+        String karmaQuery = "INSERT INTO karma (uuid, karma) VALUES (?, ?)";
         String statsQuery = "UPDATE stats SET kills=?, deaths=?, wins=?, losses=?, played_games=?, fk=? WHERE uuid=?";
 
         FileConfiguration fileConfiguration = YamlConfiguration.loadConfiguration(playerStats);
         ConfigurationSection playersSection = fileConfiguration.getConfigurationSection("players");
 
-        for (String key : playersSection.getKeys(false)) {
+        for(String key : playersSection.getKeys(false)) {
             int karmaValue = playersSection.getInt(key + ".karma");
             int killsValue = playersSection.getInt(key + ".kills");
             int deathsValue = playersSection.getInt(key + ".deaths");
@@ -305,13 +305,16 @@ public class StatsManager implements Stats {
             int playedGamesValue = playersSection.getInt(key + ".played_games");
             int fkValue = playersSection.getInt(key + ".fk");
 
-            mySQL.update(karmaQuery, karmaValue, key);
+            mySQL.update(karmaQuery, key, karmaValue);
             mySQL.update(statsQuery, killsValue, deathsValue, winsValue, lossesValue, playedGamesValue, fkValue, key);
         }
     }
 
     private void createTables() {
-        mySQL.update("CREATE TABLE IF NOT EXISTS karma (uuid VARCHAR(36), karma INT)");
+        mySQL.update("CREATE TABLE IF NOT EXISTS karma (" +
+                "uuid VARCHAR(36)," +
+                "karma INT," +
+                "timestamp DATETIME DEFAULT CURRENT_TIMESTAMP");
         mySQL.update("CREATE TABLE IF NOT EXISTS stats (" +
                 "uuid VARCHAR(36)," +
                 "kills INT," +
@@ -319,6 +322,7 @@ public class StatsManager implements Stats {
                 "wins INT," +
                 "losses INT," +
                 "played_games INT," +
-                "fk INT)");
+                "fk INT," +
+                "timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)");
     }
 }
