@@ -29,7 +29,7 @@ public class TesterListener implements Listener {
         if(ingameState.isGrace()) return;
 
         Tester tester = ingameState.getMap().getTester();
-        if(tester.getTesterButton().getLocation().equals(block.getLocation()))
+        if(tester.getButton().getLocation().equals(block.getLocation()))
             tester.test(event.getPlayer());
     }
 }

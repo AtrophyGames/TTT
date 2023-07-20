@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TTT.iml" filepath="$PROJECT_DIR$/TTT.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TTT.main.iml" filepath="$PROJECT_DIR$/.idea/modules/TTT.main.iml" />
     </modules>
   </component>
 </project>

@@ -62,24 +62,24 @@ public class GameProgressListener implements Listener {
                     if(deadPlayerRole == Role.TRAITOR) {
                         int karma = 20;
                         killer.sendMessage(TTT.PREFIX + "§cDu hast einen Verbündeten getötet!");
-                        statsManager.addKarma(killer, karma);
-                        spawnHologram(deadPlayer, killer, -karma);
-                        statsManager.addFK(killer);
+                        statsManager.setKarma(killer, (statsManager.getKarma(killer) - karma));
+                        spawnHologram(deadPlayer, killer, karma);
+                        statsManager.setFK(killer, statsManager.getFK(killer) + 1);
                     } else if(deadPlayerRole == Role.DETECTIVE){
                         int karma = 10;
                         killer.sendMessage(TTT.PREFIX + "Du hast " + deadPlayerRole.getChatColor() +
                                 deadPlayer.getName() + " umgebracht");
                         plugin.getRoleInventory().getPointManager().addPoints(killer, 3);
-                        statsManager.addKarma(killer, karma);
+                        statsManager.setKarma(killer, (statsManager.getKarma(killer) + karma));
                         spawnHologram(deadPlayer, killer, karma);
                     } else if(deadPlayerRole == Role.INNOCENT){
                         int karma = 10;
                         killer.sendMessage(TTT.PREFIX + "Du hast §e" + deadPlayer.getName() + " umgebracht");
                         plugin.getRoleInventory().getPointManager().addPoints(killer, 1);
-                        statsManager.addKarma(killer, karma);
+                        statsManager.setKarma(killer, (statsManager.getKarma(killer) + karma));
                         spawnHologram(deadPlayer, killer, karma);
                     }
-                    statsManager.addKill(killer);
+                    statsManager.setKills(killer, statsManager.getKills(killer) + 1);
                     break;
 
                 case DETECTIVE:
@@ -88,30 +88,30 @@ public class GameProgressListener implements Listener {
                         int karma = 20;
                         killer.sendMessage(TTT.PREFIX + "§aDu hast einen §cVerräter §aerwischt!");
                         plugin.getRoleInventory().getPointManager().addPoints(killer, 2);
-                        statsManager.addKarma(killer, karma);
+                        statsManager.setKarma(killer, statsManager.getKarma(killer) + karma);
                         spawnHologram(deadPlayer, killer, karma);
                     } else if (deadPlayerRole == Role.DETECTIVE) {
                         int karma = 50;
                         killer.sendMessage(TTT.PREFIX + "§cDu hast einen §9Detektiv §cgetötet!");
                         plugin.getRoleInventory().getPointManager().addPoints(killer, 3);
-                        statsManager.addKarma(killer, -karma);
+                        statsManager.setKarma(killer, (statsManager.getKarma(killer) - karma));
                         spawnHologram(deadPlayer, killer, karma);
-                        statsManager.addFK(killer);
+                        statsManager.setFK(killer, statsManager.getFK(killer) + 1);
                     } else {
                         int karma = 20;
                         killer.sendMessage(TTT.PREFIX + "§cDu hast einen §aUnschuldigen §cgetötet!");
-                        statsManager.addKarma(killer, -karma);
+                        statsManager.setKarma(killer, (statsManager.getKarma(killer) - karma));
                         spawnHologram(deadPlayer, killer, karma);
-                        statsManager.addFK(killer);
+                        statsManager.setFK(killer, statsManager.getFK(killer) + 1);
                     }
-                    statsManager.addKill(killer);
+                    statsManager.setKills(killer, statsManager.getKills(killer) + 1);
                     break;
             }
             deadPlayer.sendMessage(TTT.PREFIX + "§cDu wurdest von " + killerRole.getChatColor() + killer.getName() + " §cgetötet!");
-            statsManager.addDeath(deadPlayer);
+            statsManager.setDeaths(deadPlayer, statsManager.getDeaths(deadPlayer) + 1);
         } else {
             deadPlayer.sendMessage(TTT.PREFIX + "§cDu bist gestorben!");
-            statsManager.addDeath(deadPlayer);
+            statsManager.setDeaths(deadPlayer, statsManager.getDeaths(deadPlayer) + 1);
         }
         if(plugin.getRoleManager().getPlayerRole(deadPlayer) == Role.TRAITOR)
             roleManager.getTraitorPlayers().remove(deadPlayer.getName());

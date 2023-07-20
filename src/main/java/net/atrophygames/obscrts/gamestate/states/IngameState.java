@@ -51,8 +51,8 @@ public class IngameState extends GameState {
         ingameScoreboard = new IngameScoreboard(plugin);
 
         for(Player currentPlayer : plugin.getPlayers()) {
-            statsManager.addPlayedGame(currentPlayer);
-            statsManager.addLoss(currentPlayer);
+            statsManager.setPlayedGames(currentPlayer, statsManager.getPlayedGames(currentPlayer) + 1);
+            statsManager.setLosses(currentPlayer, statsManager.getLosses(currentPlayer) + 1);
         }
 
         map = plugin.getVoting().getWinnerMap();
@@ -64,7 +64,7 @@ public class IngameState extends GameState {
            winningRole = Role.INNOCENT;
            plugin.getGameStateManager().setGameState(GameState.ENDING_STATE);
            for(Player currentPlayer : plugin.getPlayers()) {
-               plugin.getStatsManager().addKarma(currentPlayer, 20);
+               plugin.getStatsManager().setKarma(currentPlayer, 20);
                CoinAPI.getApi().addCoins(currentPlayer.getUniqueId(),
                        (int) ((-0.3 * getGameEndCountdown().getSeconds()) + 200) + 50);
            }
@@ -73,7 +73,7 @@ public class IngameState extends GameState {
            winningRole = Role.TRAITOR;
            plugin.getGameStateManager().setGameState(GameState.ENDING_STATE);
            for(String currentPlayer : plugin.getRoleManager().getTraitorPlayers()) {
-               plugin.getStatsManager().addKarma(Bukkit.getPlayer(currentPlayer), 20);
+               plugin.getStatsManager().setKarma(Bukkit.getPlayer(currentPlayer), 20);
                CoinAPI.getApi().addCoins(Bukkit.getPlayer(currentPlayer).getUniqueId(),
                        (int) ((-0.3 * getGameEndCountdown().getSeconds()) + 200) + 50);
            }
@@ -101,7 +101,8 @@ public class IngameState extends GameState {
                 for(String currentPlayerName : plugin.getRoleManager().getTraitorPlayers()) {
                     CoinAPI.getApi().addCoins(Bukkit.getPlayer(currentPlayerName).getUniqueId(),
                             (int) ((-0.3 * getGameEndCountdown().getSeconds()) + 200) + 35);
-                    statsManager.addWin(Bukkit.getPlayer(currentPlayerName));
+                    statsManager.setWins(Bukkit.getPlayer(currentPlayerName),
+                            statsManager.getWins(Bukkit.getPlayer(currentPlayerName)) + 1);
                     statsManager.setLosses(Bukkit.getPlayer(currentPlayerName),
                             statsManager.getLosses(Bukkit.getPlayer(currentPlayerName)) - 1);
                 }
@@ -112,7 +113,7 @@ public class IngameState extends GameState {
                 for(Player currentPlayer : plugin.getPlayers()) {
                     CoinAPI.getApi().addCoins(currentPlayer.getUniqueId(),
                             (int) ((-0.3 * getGameEndCountdown().getSeconds()) + 200) + 35);
-                    plugin.getStatsManager().addWin(currentPlayer);
+                    plugin.getStatsManager().setWins(currentPlayer, statsManager.getWins(currentPlayer) + 1);
                 }
                 break;
         }
