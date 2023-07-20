@@ -67,6 +67,10 @@ import java.util.ArrayList;
         desc = "display the player's stats",
         usage = "/<command>")
 
+@Command(name = "test",
+        desc = "display the player's stats",
+        usage = "/<command>")
+
 @Getter
 public class TTT extends JavaPlugin {
 
@@ -204,5 +208,7 @@ public class TTT extends JavaPlugin {
         getCommand("stats").setTabCompleter(new StatsCommand(this));
         getCommand("statsall").setExecutor(new StatsCommand(this));
         getCommand("statsall").setTabCompleter(new StatsCommand(this));
+
+        getCommand("test").setExecutor(new TestCommand(this));
     }
 }

@@ -44,11 +44,8 @@ public class PlayerConnectLobbyListener implements Listener {
         Player player = event.getPlayer();
         UUID playerUUID = player.getUniqueId();
 
-        if(!statsManager.isUserExistentForKarma(playerUUID))
-            statsManager.initKarmaForPlayer(playerUUID);
         if(!statsManager.isUserExistentForStats(playerUUID))
             statsManager.initStatsForPlayer(playerUUID);
-        statsManager.addPlayerToFile(player);
 
         plugin.getPlayers().add(player);
         event.setJoinMessage("§7[§a+§7] " + getUserRankColor(player) + player.getDisplayName());

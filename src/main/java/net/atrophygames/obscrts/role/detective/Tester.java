@@ -20,7 +20,9 @@ public class Tester {
     private Map map;
     private Block[] borderBlocks, lamps;
     @Getter
-    private Block button;
+    private Block testerButton;
+    @Getter
+    private Block trapButton;
     private Location testerLocation;
     private World world;
     private boolean inUse;
@@ -50,7 +52,7 @@ public class Tester {
             }
         }
 
-        player.teleport(button.getLocation());
+        player.teleport(testerButton.getLocation());
         inUse = true;
         for(Block currentBlock : borderBlocks) world.getBlockAt(currentBlock.getLocation()).setType(Material.GLASS);
         for(Player currentPlayer : Bukkit.getOnlinePlayers())
@@ -102,7 +104,8 @@ public class Tester {
                     "maps." + map.getName() + ".tester.lamps." + i).loadBlockLocation();
         }
 
-        button = new ConfigLocationUtil(plugin, "maps." + map.getName() + ".tester.button").loadBlockLocation();
+        testerButton = new ConfigLocationUtil(plugin, "maps." + map.getName() + ".tester.button").loadBlockLocation();
+        trapButton = new ConfigLocationUtil(plugin, "maps." + map.getName() + ".tester.trap_button").loadBlockLocation();
         testerLocation = new ConfigLocationUtil(plugin, "maps." + map.getName() + ".tester.location").loadLocation();
 
         world = map.getSpectatorSpawnLocation().getWorld();

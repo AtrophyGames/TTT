@@ -6,6 +6,8 @@
         <autoDetectTypes>
           <platformType>SPIGOT</platformType>
           <platformType>BUKKIT</platformType>
+          <platformType>ADVENTURE</platformType>
+          <platformType>FABRIC</platformType>
         </autoDetectTypes>
       </configuration>
     </facet>

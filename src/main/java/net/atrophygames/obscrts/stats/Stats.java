@@ -6,23 +6,23 @@ public interface Stats {
 
 
     public int getKarma(Player player);
-    public void setKarma(Player player, int karma);
+    public void addKarma(Player player, int karma);
 
     public int getKills(Player player);
-    public void setKills(Player player, int kills);
+    public void addKill(Player player);
 
     public int getDeaths(Player player);
-    public void setDeaths(Player player, int deaths);
+    public void addDeath(Player player);
 
     public int getWins(Player player);
-    public void setWins(Player player, int wins);
+    public void addWin(Player player);
 
     public int getLosses(Player player);
-    public void setLosses(Player player, int losses);
+    public void addLoss(Player player);
 
     public int getPlayedGames(Player player);
-    public void setPlayedGames(Player player, int player_games);
+    public void addPlayedGame(Player player);
 
     public int getFK(Player player);
-    public void setFK(Player player, int fkq);
+    public void addFK(Player player);
 }
